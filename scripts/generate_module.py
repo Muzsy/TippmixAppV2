@@ -1,47 +1,45 @@
-import openai
-import os
+# Fájl neve: generate_plan.py
+# Elérési út: /scripts/
 
-# GPT API kulcs beállítása (GitHub Secrets vagy CI env változóként ajánlott)
+import os
+import openai
+import re
+
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Prompt sablon beolvasása (templates/module_prompt.txt)
-def load_prompt_template():
-    with open("templates/module_prompt.txt", "r", encoding="utf-8") as f:
-        return f.read()
+# Egyszerű bemenet: active_plan.txt
+with open("scripts/active_plan.txt", "r", encoding="utf-8") as f:
+    plan_request = f.read()
 
-# Issue-ból nyert adat + blueprint egyesítése prompttá
-def build_prompt(issue_description, blueprint):
-    template = load_prompt_template()
-    return template.replace("{{ISSUE_DESCRIPTION}}", issue_description).replace("{{PROJECT_BLUEPRINT}}", blueprint)
+# Prompt sablon: fix struktúra
+prompt = f"""
+Kérem, csak egy tervet generálj az alábbi képernyőhöz:
 
-# GPT hívás (GPT-4o javasolt)
-def generate_response(prompt):
-    response = openai.ChatCompletion.create(
-        model="gpt-4o",
-        messages=[
-            {"role": "system", "content": "You are a senior Flutter developer AI agent."},
-            {"role": "user", "content": prompt}
-        ],
-        temperature=0.3
-    )
-    return response.choices[0].message.content
+{plan_request}
 
-# Fő generálási függvény
-def generate_module(issue_path, blueprint_path):
-    with open(issue_path, "r", encoding="utf-8") as f:
-        issue_content = f.read()
-    with open(blueprint_path, "r", encoding="utf-8") as f:
-        blueprint_content = f.read()
+Struktúrát kérek Markdown formában:
+- Mit fog tartalmazni a képernyő
+- Milyen adatokat kezel
+- Milyen fájlok jönnek létre (előzetes becslés)
+- Edge case-ek
+- Lokalizációs kulcsok prefixe
+- Tesztelhetőség fő szempontjai
 
-    prompt = build_prompt(issue_content, blueprint_content)
-    generated = generate_response(prompt)
+Csak tervezői választ kérek, ne generálj kódot.
+"""
 
-    output_path = "generated/module_output.md"
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.write(generated)
-    print("✅ Modul generálva: ", output_path)
+response = openai.ChatCompletion.create(
+    model="gpt-4",
+    messages=[
+        {"role": "user", "content": prompt}
+    ],
+    temperature=0.2
+)
 
-# Ha önállóan futtatjuk (pl. local script vagy CI-ben)
-if __name__ == "__main__":
-    generate_module(".github/ISSUE_TEMPLATE/current_issue.md", "docs/blueprints/project_blueprint.md")
+output = response["choices"][0]["message"]["content"]
+
+os.makedirs("scripts/output", exist_ok=True)
+with open("scripts/output/screen_plan.md", "w", encoding="utf-8") as f:
+    f.write(output)
+
+print("Terv generálva: screen_plan.md")
