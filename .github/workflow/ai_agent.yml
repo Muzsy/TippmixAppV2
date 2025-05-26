@@ -1,0 +1,38 @@
+name: AI Agent – Generate Flutter Module
+
+on:
+  issues:
+    types: [opened, edited]
+    paths:
+      - .github/ISSUE_TEMPLATE/current_issue.md
+
+jobs:
+  generate-module:
+    if: contains(github.event.issue.title, '[MVP]')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install openai
+
+      - name: Run module generation script
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python scripts/generate_module.py
+
+      - name: Commit and push generated module
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add generated/module_output.md
+          git commit -m "chore(agent): generated module from issue"
+          git push

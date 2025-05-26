@@ -1,0 +1,31 @@
+name: "Generate Flutter Module"
+description: "Kérj egy új Flutter modul automatikus generálását az agent segítségével."
+title: "[MVP] Modul: <modul neve>"
+labels: ["ai-agent", "module-request"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Modul leírása
+      description: Írd le röviden, hogy mit csináljon ez a modul. (Pl.: fogadási képernyő, szelvénylista, tippek értékelése...)
+      placeholder: "Ez a modul listázza a kiválasztható meccseket, és szelvényt lehet összeállítani belőlük..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: files
+    attributes:
+      label: Szükséges fájlok
+      description: Sorold fel, milyen fájlokat szeretnél generáltatni (képernyők, modellek, szervizek, stb.)
+      placeholder: "- create_ticket_screen.dart\n- ticket_model.dart\n- ticket_service.dart\n- create_ticket_screen_test.dart"
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Extra információ vagy feltétel
+      description: Ha van valamilyen szabály, viselkedés vagy példa amit figyelembe kell venni, írd ide.
+      placeholder: "A szelvény csak akkor küldhető be, ha a legkorábbi fogadás commenceTime nem múlt el."
+    validations:
+      required: false

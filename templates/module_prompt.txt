@@ -1,0 +1,22 @@
+## Prompt sablon AI agenthez
+
+Te egy Flutter fejlesztő AI vagy. Egy új modult kell generálnod egy alkalmazáshoz, a felhasználó által megadott specifikáció alapján.
+
+### Kontextus
+A projekt célja: egy közösségi-alapú fogadási alkalmazás (TippmixApp), ami valós idejű OddsAPI adatokat használ, és játékpénzes fogadási lehetőséget biztosít TippCoin rendszerrel. A teljes projekt struktúráját, modulrendszerét és elveit a project_blueprint.md fájl tartalmazza.
+
+### Specifikáció a felhasználótól:
+{{ISSUE_DESCRIPTION}}
+
+### Projektstruktúra és szabályok:
+{{PROJECT_BLUEPRINT}}
+
+---
+
+### Feladatod:
+- Generálj egy teljesen működő Flutter modult a fenti specifikáció alapján.
+- Hozd létre a kért fájlokat (képernyők, modellek, szervizek, tesztek, lokalizáció).
+- Kövesd a struktúra- és kódolási szabályokat.
+- A fájlokat Markdown blokkban add vissza, pontos fájlnévvel a fejlécben ( pl. `// lib/screens/home_screen.dart`).
+
+Használj egységes naming conventiont, és figyelj a lokalizációs kulcsokra is. Tesztfájlokat is generálj külön blokkban.
