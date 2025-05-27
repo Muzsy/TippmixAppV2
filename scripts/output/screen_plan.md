@@ -1,37 +1,38 @@
-### Képernyő Struktúra
+## Képernyő Struktúra
 
+### Főképernyő elemei:
 1. **AppBar**
-   - Alkalmazás neve vagy logója
-   - Menü ikon vagy vissza gomb
-   - Beállítások ikon
+   - Alkalmazás neve vagy logó
+   - Menü ikon vagy navigációs lehetőség
 
-2. **Üdvözlő szöveg és TippCoin egyenleg**
-   - Üdvözlő üzenet a felhasználónak
-   - TippCoin egyenleg kijelző
+2. **Üdvözlő szöveg**
+   - Dinamikus szöveg, amely üdvözli a felhasználót
 
-3. **Fogadási események listája**
+3. **TippCoin egyenleg helyőrző**
+   - Jelenlegi TippCoin egyenleg megjelenítése
+
+4. **Fogadási események listája**
    - Mozgó kártyák formájában megjelenített események
-   - Kártyák tartalma:
-     - Esemény neve
-     - Esemény időpontja
-     - Részletek gomb
+   - Minden kártya tartalmazza:
+     - Meccs neve
+     - Időpont
+     - Részletek gomb (tipp kiválasztásához)
 
-### Kezelt Adatok
+### Kezelt adatok:
+- Felhasználó neve (üdvözlő szöveghez)
+- TippCoin egyenleg
+- Fogadási események listája (meccs neve, időpont, részletek)
 
-- Felhasználó neve és TippCoin egyenleg
-- Fogadási események listája (név, időpont, részletek)
-- Lokalizációs adatok
-
-### Létrejövő Fájlok (előzetes becslés)
-
+### Létrejövő fájlok (előzetes becslés):
 1. **UI komponens fájlok**
    - AppBar komponens
-   - Üdvözlő és TippCoin kijelző komponens
+   - Üdvözlő szöveg komponens
+   - TippCoin egyenleg komponens
    - Fogadási esemény kártya komponens
 
 2. **Adatkezelő fájlok**
    - Felhasználói adatok kezelése
-   - Események adatainak kezelése
+   - Fogadási események adatainak kezelése
 
 3. **Stílus fájlok**
    - Általános stílusok
@@ -40,20 +41,18 @@
 4. **Lokalizációs fájlok**
    - Nyelvi fordítások
 
-### Edge Case-ek
-
+### Edge case-ek:
 - Nincs elérhető fogadási esemény
-- Felhasználó TippCoin egyenlege 0
-- Hálózati hiba esetén az események nem töltődnek be
+- Felhasználó TippCoin egyenlege nem elérhető
+- Hálózati hiba esetén az adatok nem töltődnek be
 
-### Lokalizációs Kulcsok Prefixe
-
+### Lokalizációs kulcsok prefixe:
 - `main_screen_`
+  - Például: `main_screen_welcome_message`, `main_screen_balance_placeholder`
 
-### Tesztelhetőség Fő Szempontjai
-
-- Felhasználói felület elemeinek helyes megjelenítése különböző képernyőméreteken
+### Tesztelhetőség fő szempontjai:
+- UI elemek helyes megjelenése különböző képernyőméreteken
 - Adatok helyes betöltése és megjelenítése
-- Interakciók (pl. kártyákra kattintás) megfelelő működése
+- Interakciók (pl. kártyákra kattintás) helyes működése
 - Hibaüzenetek és edge case-ek kezelése
 - Lokalizációs tesztek különböző nyelveken
