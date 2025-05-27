@@ -1,67 +1,59 @@
-### Képernyő Struktúra
+## Képernyő Struktúra
 
+### Főképernyő elemei:
 1. **AppBar**
-   - Alkalmazás neve vagy logó
-   - Menü ikon vagy profil ikon
+   - Alkalmazás neve
+   - Menü ikon vagy vissza gomb
+   - Beállítások ikon
 
-2. **Üdvözlő Szöveg**
-   - Dinamikus üdvözlő üzenet a felhasználó nevével
+2. **Üdvözlő szöveg**
+   - Dinamikus szöveg, amely köszönti a felhasználót
 
-3. **TippCoin Egyenleg**
-   - Jelenlegi TippCoin egyenleg megjelenítése
+3. **TippCoin egyenleg**
+   - Jelenlegi egyenleg megjelenítése
+   - Frissítés gomb
 
-4. **Fogadási Események Listája**
-   - Mozgó kártyák formájában megjelenített események
-   - Kártyánként megjelenítendő adatok:
+4. **Fogadási események listája**
+   - Mozgó kártyák formájában
+   - Minden kártya tartalmazza:
      - Esemény neve
-     - Esemény időpontja
-     - Résztvevő csapatok vagy játékosok
+     - Időpont
+     - Résztvevő csapatok/játékosok
      - Fogadási lehetőségek
 
-### Kezelt Adatok
+### Kezelt adatok:
+- Felhasználói adatok (név, TippCoin egyenleg)
+- Fogadási események adatai (esemény neve, időpont, résztvevők, fogadási lehetőségek)
+- Lokalizációs adatok
 
-- Felhasználó neve és TippCoin egyenleg
-- Fogadási események adatai:
-  - Esemény azonosító
-  - Esemény neve
-  - Időpont
-  - Résztvevők
-  - Fogadási lehetőségek és szorzók
+### Létrejövő fájlok (előzetes becslés):
+1. **UI fájlok**
+   - `main_screen.dart`: A főképernyő felépítése
+   - `event_card.dart`: A fogadási esemény kártya komponens
 
-### Létrejövő Fájlok (előzetes becslés)
+2. **Adatkezelés**
+   - `user_data.dart`: Felhasználói adatok kezelése
+   - `event_data.dart`: Fogadási események kezelése
 
-1. **UI komponens fájlok**
-   - AppBar komponens
-   - Üdvözlő szöveg komponens
-   - TippCoin egyenleg komponens
-   - Fogadási esemény kártya komponens
+3. **Lokalizáció**
+   - `localization.dart`: Lokalizációs kulcsok és szövegek
 
-2. **Adatkezelő fájlok**
-   - Felhasználói adatok kezelése
-   - Események adatainak kezelése
+4. **Tesztelés**
+   - `main_screen_test.dart`: Tesztesetek a főképernyőhöz
+   - `event_card_test.dart`: Tesztesetek az esemény kártyához
 
-3. **Stílus fájlok**
-   - Általános stílusok
-   - Kártya stílusok
+### Edge case-ek:
+- Nincs elérhető fogadási esemény
+- Hálózati hiba esetén nem töltődnek be az adatok
+- Felhasználói egyenleg frissítése sikertelen
+- Nem támogatott nyelvi beállítás
 
-4. **Lokalizációs fájlok**
-   - Nyelvi fordítások
+### Lokalizációs kulcsok prefixe:
+- `main_screen_`
 
-### Edge Case-ek
-
-- Üres eseménylista kezelése
-- Hibás vagy hiányzó felhasználói adatok
-- Események adatainak frissítése közben fellépő hibák
-- TippCoin egyenleg változásának kezelése
-
-### Lokalizációs Kulcsok Prefixe
-
-- `mainScreen.`
-
-### Tesztelhetőség Fő Szempontjai
-
+### Tesztelhetőség fő szempontjai:
 - UI elemek helyes megjelenítése különböző képernyőméreteken
-- Fogadási események helyes betöltése és frissítése
-- Felhasználói interakciók (pl. kártyára kattintás) helyes működése
+- Adatok helyes betöltése és megjelenítése
+- Felhasználói interakciók (pl. kártyára kattintás) helyes kezelése
+- Hibaüzenetek és edge case-ek megfelelő kezelése
 - Lokalizációs szövegek helyes megjelenítése különböző nyelveken
-- Hibakezelés és edge case-ek megfelelő kezelése
