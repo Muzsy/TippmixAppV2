@@ -1,0 +1,47 @@
+Fájl neve: agent_prompt_template.txt
+Elérési út: /templates/
+
+---
+
+AI Agent prompt sablon (Home-First / Anchor Screen Development verzio)
+
+Cél: Egy adott főképernyő (pl. home_screen) generálása az összes kapcsolódó elemmel.
+
+---
+
+# Prompt sablon (magyar nyelven)
+
+Kérem, generáld le a(z) `{{screen_name}}` képernyőhöz tartozó összes összetevőt a `project_blueprint.md` és a megadott specifikáció alapján.
+
+## Képernyő neve
+- {{screen_name}}
+
+## Leírás
+- {{screen_description}}
+
+## Fájlok
+- Képernyő: `lib/screens/{{screen_name}}.dart`
+- Widgetek: {{widget_files}}
+- Szervizek: {{service_files}}
+- Modellek: {{model_files}}
+- Lokalizáció: `l10n/app_*.arb`
+- Tesztek: `test/screens/{{screen_name}}_test.dart`, stb.
+
+## Funkciók
+- {{functional_summary}}
+
+## Megjegyzés
+Csak a kapcsolódó, minimálisan szükséges fájlokat generáld. Figyelj a lokalizált kulcsokra és az app struktúrájára.
+
+---
+
+# Prompt template (English reference)
+
+Please generate all necessary files for the `{{screen_name}}` screen based on the project_blueprint.md and the following specification.
+
+Files: widgets, models, services, localized ARB strings, tests.
+Focus: minimal scope, screen-first layout, consistent naming, reuse existing structure.
+
+---
+
+Ez a sablon kész a generate_module.py script számára, amely be fogja helyettesíteni a `{{...}}` kulcsokat.

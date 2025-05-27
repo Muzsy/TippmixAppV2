@@ -1,0 +1,15 @@
+{
+  "localization_required": true,
+  "localization_prefix_required": true,
+  "text_regex": "Text\\(['\\\"].+?['\\\"]\\)",
+  "localization_check": "AppLocalizations.of",
+  "excluded_dirs": [
+    "lib/generated",
+    "lib/l10n"
+  ],
+  "require_class_comment": true,
+  "require_test_file": true,
+  "test_folder": "test/",
+  "naming_convention": "snake_case",
+  "validate_entire_project": false
+}

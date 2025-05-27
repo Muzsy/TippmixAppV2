@@ -1,0 +1,13 @@
+screen_name: home_screen
+description: A főképernyő megjeleníti a fogadási eseményeket mozgó kártyák formájában. A cél, hogy a felhasználó egyből lássa az elérhető meccseket, és rákattintva kiválaszthassa a tippet. A képernyő tetején AppBar, alatta üdvözlő szöveg és TippCoin egyenleg helyőrző doboz, majd a meccsek listája következik.
+widget_files: lib/widgets/tip_card.dart
+service_files: lib/services/logic/home_service.dart, lib/services/remote/match_service.dart
+model_files: lib/models/match_model.dart, lib/models/tip_model.dart
+commit_message: feat: újragenerált home_screen
+functions: 
+- AppBar megjelenítése (profil ikon, app név, értesítések ikonja)
+- Üdvözlő szöveg és TippCoin egyenleg doboz megjelenítése
+- Meccsek listázása TipCard komponensekkel
+- Pull to refresh és automatikus frissítés megvalósítása
+- Hiba esetén üzenet megjelenítése (pl. hálózati hiba vagy nincs meccs)
+- Lokalizált szövegek használata (prefix: home_)

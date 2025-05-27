@@ -1,44 +1,73 @@
-Cím: [MVP] TippmixApp minimálisan működőképes verzió generálása
+# Fájl neve: project_blueprint.md
+# Elérési út: /docs/blueprints/
 
-Kérlek, generáld le a TippmixApp alkalmazás első, minimálisan működőképes verzióját (MVP) a `project_blueprint.md` fájl alapján.
+# TippmixApp V2 - Projekt BluePrint (Home-First alapon)
 
-### Követelmények:
-
-#### Képernyők:
-- `home_screen.dart`: főoldal navigációs csempével („Fogadás indítása”)
-- `match_ticket_screen.dart`: OddsAPI-ból beolvasott meccsek és kimenetelek listázása
-- `create_ticket_screen.dart`: kiválasztott fogadásokból szelvény készítése
-
-#### Modellek:
-- `match_model.dart`, `selection_model.dart`
-- `ticket_model.dart` (final struktúra szerint)
-
-#### Szervizek:
-- `match_service.dart`: Firestore-ból meccslista betöltés
-- `ticket_service.dart`: szelvény validálás, beküldés
-
-#### Funkciók:
-- Szelvény csak egy fogadóiroda fogadásaiból állhat
-- Beküldés csak akkor, ha még nem járt le a legkorábbi `commenceTime`
-- Kötéstiltás logika: ne lehessen egy meccs több kimenetelét felvenni
-- Beküldéskor a státusz `pending`, a nyeremény kiszámolva tárolva
-
-#### Lokalizáció:
-- `intl_hu.arb`, `intl_en.arb`, `intl_de.arb`
-- Lokalizált kulcsok használata minden szöveghez
-
-#### Teszt:
-- Legalább 1 teszt minden `service` fájlhoz (`*_test.dart`)
-- Modell validálás `ticket_model_test.dart`
-
-### Elrendezés:
-- `lib/screens/`, `lib/models/`, `lib/services/`, `lib/widgets/`
-- `test/screens/`, `test/models/`, `test/services/`
-- `l10n/` – lokalizációs fájlok
-
-### Referencia:
-Lásd: `docs/blueprints/project_blueprint.md`
+Ez a dokumentum az AI agent által vezérelt fejlesztés alaptérképe. A projekt nem modulrendszerű, hanem képernyőalapú (anchor screen / home-first) stratégia szerint halad.
 
 ---
 
-**A cél:** Egy működőképes, buildelhető Flutter alkalmazás MVP szinten, amivel már lehet odds API eseményre szelvényt összeállítani és beküldeni.
+## Alapelv
+
+- Minden fejlesztés egy **fő képernyőből** indul ki (pl. `home_screen`)
+- Innen ágaznak el a komponensek: kártyák, logikák, szervizek, adatok
+- Az AI mindig egy ilyen képernyőhöz kapcsolódó fájlokat generál
+- Az adatok Firestore-ból érkeznek, az OddsAPI-ra alapozva
+
+---
+
+## 1. Aktuális fókusz: `home_screen`
+
+### Cél:
+- A felhasználó fogadási eseményeket lásson mozgó csempéken
+- Rákattintva: tippelhet, szelvényt állíthat össze
+- Lokalizált (HU/EN/DE), élő odds-szal
+
+### Funkciók:
+- Meccsek listázása
+- Tippkártyák (könnyen kattintható)
+- Navigáció szelvény összeállítóhoz
+- Frissítés (pull to refresh / automatikus interval)
+
+### Várható fájlok:
+- `lib/screens/home_screen.dart`
+- `lib/widgets/tip_card.dart`
+- `lib/services/logic/home_service.dart`
+- `lib/services/remote/match_service.dart`
+- `lib/models/match_model.dart`, `tip_model.dart`
+- `l10n/app_*.arb`
+- `test/screens/home_screen_test.dart`
+
+---
+
+## 2. Architektúra
+
+| Mappa | Cél |
+|-------|-----|
+| `screens/` | Képernyők (pl. home_screen, create_ticket_screen) |
+| `widgets/` | Lokális vizuális elemek (pl. tip_card) |
+| `models/` | Firestore-ra és OddsAPI-ra épülő adatmodellek |
+| `services/logic/` | Állapotkezelés, feldolgozás |
+| `services/remote/` | API hívások, adatletöltés |
+| `test/` | Widget és logika tesztek |
+| `l10n/` | Lokalizált kulcsok ARB formában |
+
+---
+
+## 3. Generálási szabályok
+- Minden generált kód egyezzen a naming conventionökkel (snake_case Dartban)
+- Csak azt generáljuk, ami az adott képernyőhöz tartozik
+- Lokalizációs kulcs minden `Text` esetén
+- Minden generált osztály tartalmazzon minimum kommentet (///)
+- Teszt minden képernyőhöz automatikusan legyen előkészítve
+
+---
+
+## 4. További anchor screen-ek (később)
+- `create_ticket_screen`
+- `match_ticket_screen`
+- `saved_tickets_screen`
+- `profile_screen`
+- `leaderboard_screen`
+
+Minden ezekhez tartozó fejlesztés az `home_screen` használati igényei alapján indul.
